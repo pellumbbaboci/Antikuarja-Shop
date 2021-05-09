@@ -12,7 +12,7 @@ const App = () => {
       <Header />
 
       <main className='py-3'>
-        <Container className='text-center py3'>
+        <Container className='text py3'>
           <Route exact path='/' component={HomeScreen} />
           <Route path='/product/:id' component={ProductScreen} />
         </Container>
