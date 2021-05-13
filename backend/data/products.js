@@ -77,6 +77,6 @@ const products = [
     rating: 4,
     numReviews: 4,
   },
-];
+]
 
-module.exports = products;
+module.exports = products
