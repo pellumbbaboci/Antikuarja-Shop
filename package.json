@@ -1,0 +1,23 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "MERN Shopping App",
+  "main": "./backend/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pellumbengineer/Best-Shop-Ever.git"
+  },
+  "author": "Pellumb Baboci",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pellumbengineer/Best-Shop-Ever/issues"
+  },
+  "homepage": "https://github.com/Pellumbengineer/Best-Shop-Ever#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
