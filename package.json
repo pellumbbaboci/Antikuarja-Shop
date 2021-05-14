@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Pellumbengineer/Best-Shop-Ever#readme",
   "dependencies": {
+    "dotenv": "^9.0.2",
     "express": "^4.17.1"
   },
   "devDependencies": {
