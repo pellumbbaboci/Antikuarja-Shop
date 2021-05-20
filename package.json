@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "MERN Shopping App",
   "main": "./backend/server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./backend/server.js",
@@ -22,7 +23,8 @@
   "homepage": "https://github.com/Pellumbengineer/Best-Shop-Ever#readme",
   "dependencies": {
     "dotenv": "^9.0.2",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.12.10"
   },
   "devDependencies": {
     "concurrently": "^6.1.0",
