@@ -9,7 +9,10 @@
     "start": "node ./backend/server.js",
     "server": "nodemon backend/server",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:import":"node backend/seeder",
+    "data:destroy":"node backend/seeder -d"
+
   },
   "repository": {
     "type": "git",
@@ -22,6 +25,7 @@
   },
   "homepage": "https://github.com/Pellumbengineer/Best-Shop-Ever#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "mongoose": "^5.12.10"
