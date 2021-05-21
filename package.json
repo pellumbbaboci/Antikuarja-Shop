@@ -28,6 +28,7 @@
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
+    "http-errors": "^1.7.2",
     "mongoose": "^5.12.10"
   },
   "devDependencies": {
