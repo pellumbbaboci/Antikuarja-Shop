@@ -12,7 +12,7 @@ import {
   FormControl,
 } from 'react-bootstrap'
 import Message from '../components/Message'
-import { addToCart } from '../actions/cartActions'
+import { addToCart, removeFromCart } from '../actions/cartActions'
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id
@@ -32,7 +32,7 @@ const CartScreen = ({ match, location, history }) => {
   }, [dispatch, productId, qty])
 
   const removeFromCartHandler = (id) => {
-    console.log('remove')
+    dispatch(removeFromCart(id))
   }
   const checkoutHandler = () => {
     history.push('/login?redirect=shipping')
@@ -51,10 +51,10 @@ const CartScreen = ({ match, location, history }) => {
             {cartItems.map((item) => (
               <ListGroup.Item key={item.product}>
                 <Row>
-                  <Col md={2}>
+                  <Col md={3}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
-                  <Col md={3}>
+                  <Col md={2}>
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </Col>
                   <Col md={2}>${item.price}</Col>
@@ -92,17 +92,36 @@ const CartScreen = ({ match, location, history }) => {
         )}
       </Col>
       <Col md={4}>
+        <h1>
+          <strong>Summary</strong>
+        </h1>
         <Card>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h2>
-                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
-                items
-              </h2>
-              $
-              {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
-                .toFixed(2)}
+              <Row>
+                <Col md={7}>
+                  <strong>Subtotal items</strong>
+                </Col>
+                <Col md={5}>
+                  <strong>
+                    : {cartItems.reduce((acc, item) => acc + item.qty, 0)}
+                  </strong>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={7}>
+                  <strong>Subtotal price</strong>
+                </Col>
+
+                <Col md={5}>
+                  <strong>
+                    : $
+                    {cartItems
+                      .reduce((acc, item) => acc + item.qty * item.price, 0)
+                      .toFixed(1)}
+                  </strong>
+                </Col>
+              </Row>
             </ListGroup.Item>
             <ListGroup.Item>
               <Button
