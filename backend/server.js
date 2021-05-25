@@ -3,6 +3,8 @@ import connectDB from './config/db.js'
 import dotenv from 'dotenv'
 import productRoutes from './routes/productRoutes.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
+import asyncHandler from 'express-async-handler'
+import Product from './models/product.js'
 
 dotenv.config()
 
@@ -13,6 +15,18 @@ const app = express()
 app.get('/', (req, res) => {
   res.send('API running ...')
 })
+
+// @desc Fetch all Related products
+// @route GET /api/products/related
+// @access public
+
+app.get(
+  '/api/products/related',
+  asyncHandler(async (req, res) => {
+    const products = await Product.find({})
+    res.json(products)
+  })
+)
 
 app.use('/api/products', productRoutes)
 

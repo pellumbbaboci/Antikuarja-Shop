@@ -3,11 +3,12 @@ import {
   PRODUCT_LIST_FAIL,
   PRODUCT_LIST_SUCCESS,
   PRODUCT_LIST_REQUEST,
-} from '../constants/productConstant'
-import {
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_SUCCESS,
   PRODUCT_DETAILS_REQUEST,
+  PRODUCT_RELATED_FAIL,
+  PRODUCT_RELATED_REQUEST,
+  PRODUCT_RELATED_SUCCESS,
 } from '../constants/productConstant'
 
 export const listProducts = () => async (dispatch) => {
@@ -44,6 +45,27 @@ export const listProductDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
+      payload:
+        error.respose && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const relatedProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_RELATED_REQUEST })
+
+    const { data } = await axios.get('/api/products/related')
+
+    dispatch({
+      type: PRODUCT_RELATED_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_RELATED_FAIL,
       payload:
         error.respose && error.response.data.message
           ? error.response.data.message
