@@ -9,7 +9,15 @@ const getProducts = asyncHandler(async (req, res) => {
   res.json(products)
 })
 
-//TODO: make an endpoint for really related products based in anything
+//TODO: make the endpoint for really related products based in anything
+
+// @desc Fetch all products
+// @route GET /api/products/related
+// @access public
+const getRelatedProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find({})
+  res.json(products)
+})
 
 // @desc Fetch a single product
 // @route GET /api/products:id
@@ -24,4 +32,4 @@ const getProductById = asyncHandler(async (req, res) => {
   }
 })
 
-export { getProductById, getProducts }
+export { getProductById, getProducts, getRelatedProducts }
