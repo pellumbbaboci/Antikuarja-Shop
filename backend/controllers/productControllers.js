@@ -9,6 +9,8 @@ const getProducts = asyncHandler(async (req, res) => {
   res.json(products)
 })
 
+//TODO: make an endpoint for really related products based in anything
+
 // @desc Fetch a single product
 // @route GET /api/products:id
 // @access public

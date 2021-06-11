@@ -1,16 +1,20 @@
 import express from 'express'
-import connectDB from './config/db.js'
 import dotenv from 'dotenv'
-import productRoutes from './routes/productRoutes.js'
-import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import asyncHandler from 'express-async-handler'
+
+import connectDB from './config/db.js'
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import Product from './models/product.js'
+import productRoutes from './routes/productRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 
 dotenv.config()
 
 connectDB()
 
 const app = express()
+
+app.use(express.json())
 
 app.get('/', (req, res) => {
   res.send('API running ...')
@@ -29,6 +33,7 @@ app.get(
 )
 
 app.use('/api/products', productRoutes)
+app.use('/api/users', userRoutes)
 
 // catch 404 and forward to error handler
 app.use(notFound)
