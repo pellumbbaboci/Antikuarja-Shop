@@ -20,18 +20,6 @@ app.get('/', (req, res) => {
   res.send('API running ...')
 })
 
-// @desc Fetch all Related products
-// @route GET /api/products/related
-// @access public
-
-app.get(
-  '/api/products/related',
-  asyncHandler(async (req, res) => {
-    const products = await Product.find({})
-    res.json(products)
-  })
-)
-
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 
