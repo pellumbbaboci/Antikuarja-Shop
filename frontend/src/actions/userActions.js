@@ -1,4 +1,4 @@
-import { axios } from 'axios'
+import axios from 'axios'
 import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
@@ -33,7 +33,7 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({
       type: USER_LOGIN_FAIL,
       payload:
-        error.respose && error.response.data.message
+        error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
     })
