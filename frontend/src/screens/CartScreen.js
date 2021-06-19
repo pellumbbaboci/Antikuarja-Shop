@@ -9,10 +9,7 @@ import {
   Form,
   Button,
   Card,
-  FormControl,
   Container,
-  Nav,
-  Table,
 } from 'react-bootstrap'
 import Message from '../components/Message'
 import { addToCart, removeFromCart } from '../actions/cartActions'
