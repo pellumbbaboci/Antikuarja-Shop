@@ -4,15 +4,13 @@ import { Carousel, Image } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { relatedProducts } from '../actions/productActions'
 import { useEffect } from 'react'
-import Loader from './Loader'
-import Message from './Message'
 
 const RelatedProducts = () => {
   const dispatch = useDispatch()
 
   const productsRelated = useSelector((state) => state.productRelated)
 
-  const { loading, error, products } = productsRelated
+  const { products } = productsRelated
 
   useEffect(() => {
     dispatch(relatedProducts())

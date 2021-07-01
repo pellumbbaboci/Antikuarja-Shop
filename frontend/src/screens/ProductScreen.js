@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { LinkContainer } from 'react-router-bootstrap'
 import {
   Row,
   Col,
   Image,
   ListGroup,
-  Card,
   Button,
   FormControl,
 } from 'react-bootstrap'
@@ -36,10 +33,6 @@ const ProductScreen = ({ history, match }) => {
 
   return (
     <>
-      <LinkContainer to='/'>
-        <Button variant='dark'>Go Back</Button>
-      </LinkContainer>
-
       {loading ? (
         <Loader></Loader>
       ) : error ? (

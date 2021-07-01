@@ -71,6 +71,30 @@ const products = [
     rating: 0,
     numReviews: 0,
   },
+  {
+    name: 'My Home Keys',
+    image: '/images/key.jpg',
+    description:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry the 1500s.',
+    brand: 'Ant',
+    category: 'accessory',
+    price: 19.99,
+    countInStock: 3,
+    rating: 5,
+    numReviews: 100,
+  },
+  {
+    name: 'My Sweet Keys',
+    image: '/images/key1.jpg',
+    description:
+      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry the 1500s.',
+    brand: 'Ant',
+    category: 'accessory',
+    price: 9.99,
+    countInStock: 30,
+    rating: 4.5,
+    numReviews: 10,
+  },
 ]
 
 export default products
