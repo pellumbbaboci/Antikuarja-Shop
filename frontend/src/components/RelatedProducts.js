@@ -12,6 +12,10 @@ const RelatedProducts = () => {
 
   const { products } = productsRelated
 
+  const cart = useSelector((state) => state.cart)
+
+  const { cartItems } = cart
+
   useEffect(() => {
     dispatch(relatedProducts())
   }, [dispatch])
@@ -22,18 +26,23 @@ const RelatedProducts = () => {
     <>
       <h2>Related Products</h2>
       <Carousel pause='hover' className='bg-blue'>
-        {products.map((product) => (
-          <Carousel.Item key={product._id}>
-            <Link to={`/product/${product._id}`}>
-              <Image src={product.image} alt={product.name} fluid />
-              <Carousel.Caption className='carousel-caption'>
-                <h2>
-                  {product.name} (${product.price})
-                </h2>
-              </Carousel.Caption>
-            </Link>
-          </Carousel.Item>
-        ))}
+        {products.map((product) =>
+          cartItems.map(
+            (itemInCart) =>
+              itemInCart.category === product.category && (
+                <Carousel.Item key={product._id}>
+                  <Link to={`/product/${product._id}`}>
+                    <Image src={product.image} alt={product.name} fluid />
+                    <Carousel.Caption className='carousel-caption'>
+                      <h2>
+                        {product.name} (${product.price})
+                      </h2>
+                    </Carousel.Caption>
+                  </Link>
+                </Carousel.Item>
+              )
+          )
+        )}
       </Carousel>
     </>
   )
