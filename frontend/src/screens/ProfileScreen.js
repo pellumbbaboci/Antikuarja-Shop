@@ -49,9 +49,9 @@ const ProfileScreen = ({ history }) => {
   }
 
   return (
-    <Row>
-      <Col md={3}>
-        <h2>User Profile</h2>
+    <Col md={12}>
+      <Row>
+        <h2>My Profile</h2>
         {error && <Message variant='danger'>{error}</Message>}
         {message && <Message variant='danger'>{message}</Message>}
         {success && <Message variant='success'>Profile Updated</Message>}
@@ -100,11 +100,12 @@ const ProfileScreen = ({ history }) => {
             Update
           </Button>
         </Form>
-      </Col>
-      <Col md={9}>
+      </Row>
+      <hr></hr>
+      <Row>
         <h2>My Orders</h2>
-      </Col>
-    </Row>
+      </Row>
+    </Col>
   )
 }
 
