@@ -10,6 +10,14 @@ import { protect } from '../middleware/authMiddleware.js '
 const router = express.Router()
 
 router.route('/').post(registerUser)
+
+/**
+ * @swagger
+ * /:
+ *   post:
+ *     summary: login
+ *     description: login.
+ */
 router.post('/login', authUser)
 router
   .route('/profile')

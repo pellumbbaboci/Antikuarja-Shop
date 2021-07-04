@@ -8,6 +8,18 @@ import Product from './models/product.js'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 
+import swaggerJsDoc from 'swagger-jsdoc'
+import swaggerUi from 'swagger-ui-express'
+import swaggerDefinition from './swaggerDef.js'
+
+const swaggerOptions = {
+  swaggerDefinition,
+  // Paths to files containing OpenAPI definitions
+  apis: ['./server.js', './routes/*.js'],
+}
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions)
+
 dotenv.config()
 
 connectDB()
@@ -16,10 +28,22 @@ const app = express()
 
 app.use(express.json())
 
+app.use(
+  '/api/docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocs, { explorer: true })
+)
+
+/**
+ * @swagger
+ * /:
+ *   get:
+ *     summary: API running
+ *     description: Making sure that API is running.
+ */
 app.get('/', (req, res) => {
   res.send('API running ...')
 })
-
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 

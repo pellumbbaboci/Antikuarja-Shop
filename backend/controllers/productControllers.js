@@ -11,8 +11,6 @@ const getProducts = asyncHandler(async (req, res) => {
   res.json(products)
 })
 
-//TODO: make the endpoint for really related products based in anything
-
 // @desc Fetch all products
 // @route GET /api/products/related
 // @access public
