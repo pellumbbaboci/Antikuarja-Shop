@@ -30,7 +30,9 @@
     "express-async-handler": "^1.1.4",
     "http-errors": "^1.7.2",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.10"
+    "mongoose": "^5.12.10",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "concurrently": "^6.1.0",
