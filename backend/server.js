@@ -1,4 +1,5 @@
 import express from 'express'
+import path from 'path'
 import dotenv from 'dotenv'
 import asyncHandler from 'express-async-handler'
 
@@ -34,18 +35,29 @@ app.use(
   swaggerUi.setup(swaggerDocs, { explorer: true })
 )
 
-/**
- * @swagger
- * /:
- *   get:
- *     summary: API running
- *     description: Making sure that API is running.
- */
-app.get('/', (req, res) => {
-  res.send('API running ...')
-})
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
+
+const __dirname = path.resolve()
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  )
+} else {
+  /**
+   * @swagger
+   * /:
+   *   get:
+   *     summary: API running
+   *     description: Making sure that API is running.
+   */
+  app.get('/', (req, res) => {
+    res.send('API running ...')
+  })
+}
 
 // catch 404 and forward to error handler
 app.use(notFound)
