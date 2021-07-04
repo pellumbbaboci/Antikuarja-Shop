@@ -1,7 +1,7 @@
 # Best-Shop-Ever Live Application URL
 E commerce shop application using MERN stack and Redux
 
-The application is deployed in 
+The application is deployed in https://bestshopeverapp.herokuapp.com/
 
 Click on the link to see the application
 
