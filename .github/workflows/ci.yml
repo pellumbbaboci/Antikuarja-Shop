@@ -27,10 +27,6 @@ jobs:
     needs: [ci_check]
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Deploy to Heroku
-        id: deploy
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
