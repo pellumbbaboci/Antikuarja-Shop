@@ -10,15 +10,12 @@ Click on the link to see the application
 Clone the project on local by ```git clone https://github.com/Pellumbengineer/Best-Shop-Ever.git``` \
 then enter with cd ``` cd Best-Shop-Ever```
 
-Create a MongoDB cluster in order to connect\
-Then create a .env file and paste the mongo_url: ``` MONGO_URI = "mongodb uri"```\
-In order to import the sample data you have to run the following command ``` npm run data:import```
-
-After Install all the npm packages. After you go into the project folder and type the following command to install all npm packages
-
+Install all the npm packages.\
 ``` npm install ```
 
-In order to run the application Type the following command 
+Import the sample data by running the following command ``` npm run data:import```
+
+In order to run the application type the following command 
 
 ``` npm run dev``` 
 
