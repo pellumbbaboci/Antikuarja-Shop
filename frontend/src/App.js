@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Footer from './components/Footer'
 import Header from './components/Header'
 import { Container } from 'react-bootstrap'
@@ -9,6 +9,7 @@ import CartScreen from './screens/CartScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
+import NotFoundScreen from './screens/NotFoundScreen'
 
 const App = () => {
   return (
@@ -17,12 +18,16 @@ const App = () => {
 
       <main className='py-3'>
         <Container className='text py3'>
-          <Route exact path='/' component={HomeScreen} />
-          <Route path='/login' component={LoginScreen} />
-          <Route path='/register' component={RegisterScreen} />
-          <Route path='/profile' component={ProfileScreen} />
-          <Route path='/product/:id' component={ProductScreen} />
-          <Route path='/cart/:id?' component={CartScreen} />
+          <Switch>
+            <Route exact path='/' component={HomeScreen} />
+            
+            <Route path='/login' component={LoginScreen} />
+            <Route path='/register' component={RegisterScreen} />
+            <Route path='/profile' component={ProfileScreen} />
+            <Route path='/product/:id' component={ProductScreen} />
+            <Route path='/cart/:id?' component={CartScreen} />
+            <Route component={NotFoundScreen} />
+          </Switch>
         </Container>
       </main>
 
