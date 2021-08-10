@@ -110,7 +110,7 @@ const ProfileScreen = ({ history }) => {
       </Row>
       <hr></hr>
       <Row>
-        <h2>My Last Three Orders</h2>
+        <h2>My Last Three Orders:</h2>
         {orders.length === 0 ? (
           <Message>You do not have any order</Message>
         ) : (
