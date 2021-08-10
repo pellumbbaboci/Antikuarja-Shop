@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateProfile } from '../actions/userActions'
-import { listOrders } from '../actions/orderActions'
+import { listLastThreeOrders } from '../actions/orderActions'
 import { Link } from 'react-router-dom'
 
 const ProfileScreen = ({ history }) => {
@@ -26,8 +26,8 @@ const ProfileScreen = ({ history }) => {
   const userProfileUpdate = useSelector((state) => state.userProfileUpdate)
   const { success } = userProfileUpdate
 
-  const orderList = useSelector((state) => state.orderList)
-  const { orders } = orderList
+  const orderListLastThree = useSelector((state) => state.orderListLastThree)
+  const { orders } = orderListLastThree
   console.log(orders)
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const ProfileScreen = ({ history }) => {
     } else {
       if (!user.name) {
         dispatch(getUserDetails('profile'))
-        dispatch(listOrders())
+        dispatch(listLastThreeOrders())
       } else {
         setName(user.name)
         setEmail(user.email)
@@ -110,7 +110,7 @@ const ProfileScreen = ({ history }) => {
       </Row>
       <hr></hr>
       <Row>
-        <h2>My Orders</h2>
+        <h2>My Last Three Orders</h2>
         {orders.length === 0 ? (
           <Message>You do not have any order</Message>
         ) : (

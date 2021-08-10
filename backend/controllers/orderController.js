@@ -12,6 +12,21 @@ const getOrders = asyncHandler(async (req, res) => {
 })
 
 /**  
+     @desc Fetch all my orders
+     @route GET /api/orders
+     @access private
+*/
+const getLastThreeOrders = asyncHandler(async (req, res) => {
+  const lastThreeOrders = await Order.find({
+    user: req.user._id,
+    createdAt: { $lt: new Date() },
+  })
+    .sort({ _id: -1 })
+    .limit(3)
+  res.json(lastThreeOrders)
+})
+
+/**  
      @desc Create new order
      @route POST /api/order
      @access private
@@ -49,4 +64,4 @@ const addOrderItems = asyncHandler(async (req, res) => {
   }
 })
 
-export { addOrderItems, getOrders }
+export { addOrderItems, getOrders, getLastThreeOrders }

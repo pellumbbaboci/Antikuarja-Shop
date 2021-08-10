@@ -20,8 +20,6 @@ const RelatedProducts = () => {
     dispatch(relatedProducts())
   }, [dispatch])
 
-  // make related products by category (now they are just sorted by rating)
-
   return (
     <>
       <h2>Related Products</h2>

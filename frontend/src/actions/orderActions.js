@@ -6,6 +6,9 @@ import {
   ORDER_LIST_FAIL,
   ORDER_LIST_REQUEST,
   ORDER_LIST_SUCCESS,
+  ORDER_LIST_LAST_THREE_FAIL,
+  ORDER_LIST_LAST_THREE_REQUEST,
+  ORDER_LIST_LAST_THREE_SUCCESS,
 } from '../constants/orderConstatns'
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -64,6 +67,37 @@ export const listOrders = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ORDER_LIST_FAIL,
+      payload:
+        error.respose && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const listLastThreeOrders = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ORDER_LIST_LAST_THREE_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get('/api/orders/lastThree', config)
+
+    dispatch({
+      type: ORDER_LIST_LAST_THREE_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: ORDER_LIST_LAST_THREE_FAIL,
       payload:
         error.respose && error.response.data.message
           ? error.response.data.message
