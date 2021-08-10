@@ -12,6 +12,7 @@ import ProfileScreen from './screens/ProfileScreen'
 import NotFoundScreen from './screens/NotFoundScreen'
 import ShippingScreen from './screens/ShippingScreen'
 import PaymentScreen from './screens/PaymentScreen'
+import PlaceOrderScreen from './screens/PlaceOrderScreen'
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Container className='text py3'>
           <Switch>
             <Route exact path='/' component={HomeScreen} />
+            <Route path='/placeorder' component={PlaceOrderScreen} />
             <Route path='/shipping' component={ShippingScreen} />
             <Route path='/payment' component={PaymentScreen} />
             <Route path='/login' component={LoginScreen} />
