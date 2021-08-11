@@ -110,16 +110,11 @@ const ProfileScreen = ({ history }) => {
       </Row>
       <hr></hr>
       <Row>
-        <h2>
-          {
-            // TODO redirect to all orders page
-            <Nav className='justify-content-end'>
-              <Link href='/'>See all your orders from here</Link>
-            </Nav>
-          }
-          My Last Three Orders
-        </h2>
-
+        {/*  TODO: redirect to all orders page */}
+        <Nav className='justify-content-end'>
+          <Link to='/'>See all your orders from here</Link>
+        </Nav>
+        <h2>My Last Three Orders</h2>
         {orders.length === 0 ? (
           <Message>You do not have any order</Message>
         ) : (

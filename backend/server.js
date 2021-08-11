@@ -13,6 +13,7 @@ import orderRoutes from './routes/orderRoutes.js'
 import swaggerJsDoc from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
 import swaggerDefinition from './swaggerDef.js'
+import cors from 'cors'
 
 const swaggerOptions = {
   swaggerDefinition,
@@ -29,6 +30,18 @@ connectDB()
 const app = express()
 
 app.use(express.json())
+
+app.set('trust proxy', true)
+
+const allowedOrigins = [
+  'http://localhost:3000/',
+  'https://bestshopeverapp.herokuapp.com/',
+]
+app.use(
+  cors({
+    origin: allowedOrigins,
+  })
+)
 
 app.use(
   '/api/docs',
