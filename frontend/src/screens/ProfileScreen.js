@@ -116,7 +116,7 @@ const ProfileScreen = ({ history }) => {
         ) : (
           <Col md={12}>
             {orders.map((order, idx) => (
-              <ListGroup variant='flush'>
+              <ListGroup variant='flush' className='my-2'>
                 <ListGroup.Item key={idx}>
                   <h2>Shipping</h2>
                   <p>
@@ -167,6 +167,9 @@ const ProfileScreen = ({ history }) => {
                     </ListGroup>
                   )}
                 </ListGroup.Item>
+                <Link to={`/order/${order._id}`} className='d-grid'>
+                  <Button>Go To Order</Button>
+                </Link>
               </ListGroup>
             ))}
           </Col>
