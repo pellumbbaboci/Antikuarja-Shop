@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col, ListGroup, Image } from 'react-bootstrap'
+import { Form, Button, Row, Col, ListGroup, Image, Nav } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -110,7 +110,16 @@ const ProfileScreen = ({ history }) => {
       </Row>
       <hr></hr>
       <Row>
-        <h2>My Last Three Orders:</h2>
+        <h2>
+          {
+            // TODO redirect to all orders page
+            <Nav className='justify-content-end'>
+              <Link href='/'>See all your orders from here</Link>
+            </Nav>
+          }
+          My Last Three Orders
+        </h2>
+
         {orders.length === 0 ? (
           <Message>You do not have any order</Message>
         ) : (
