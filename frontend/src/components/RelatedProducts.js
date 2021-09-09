@@ -23,7 +23,7 @@ const RelatedProducts = () => {
   return (
     <>
       <h2>Related Products</h2>
-      <Carousel pause='hover' className='bg-blue'>
+      <Carousel pause='hover' className='bg-dark'>
         {products.map((product) =>
           cartItems.map(
             (itemInCart) =>

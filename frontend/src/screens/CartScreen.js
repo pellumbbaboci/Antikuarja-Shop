@@ -62,6 +62,7 @@ const CartScreen = ({ match, location, history }) => {
                     <Col md={2}>${item.price}</Col>
                     <Col md={2}>
                       <Form.Control
+                        className='width-2-rem'
                         custom
                         as='select'
                         value={item.qty}
