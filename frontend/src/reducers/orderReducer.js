@@ -8,6 +8,9 @@ import {
   ORDER_LIST_LAST_THREE_FAIL,
   ORDER_LIST_LAST_THREE_REQUEST,
   ORDER_LIST_LAST_THREE_SUCCESS,
+  ORDER_DETAILS_REQUEST,
+  ORDER_DETAILS_FAIL,
+  ORDER_DETAILS_SUCCESS,
 } from '../constants/orderConstatns'
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -23,7 +26,35 @@ export const orderCreateReducer = (state = {}, action) => {
   }
 }
 
-export const orderListReducer = (state = { orders: [] }, action) => {
+export const orderDetailsReducer = (
+  state = { loading: true, orderItems: [], shippingAddress: {} },
+  action
+) => {
+  switch (action.type) {
+    case ORDER_DETAILS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      }
+    case ORDER_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        order: action.payload,
+      }
+    case ORDER_DETAILS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      }
+    default:
+      return state
+  }
+}
+
+export const orderListReducer = (
+  state = { loading: true, orders: [] },
+  action
+) => {
   switch (action.type) {
     case ORDER_LIST_REQUEST:
       return { loading: true, orders: [] }
@@ -36,7 +67,10 @@ export const orderListReducer = (state = { orders: [] }, action) => {
   }
 }
 
-export const orderListLastThreeReducer = (state = { orders: [] }, action) => {
+export const orderListLastThreeReducer = (
+  state = { loading: true, orders: [] },
+  action
+) => {
   switch (action.type) {
     case ORDER_LIST_LAST_THREE_REQUEST:
       return { loading: true, orders: [] }
