@@ -50,3 +50,7 @@ h2 {
     font-size: 2.5vw;
   }
 }
+
+.width-3-rem {
+  width: 3rem !important;
+}

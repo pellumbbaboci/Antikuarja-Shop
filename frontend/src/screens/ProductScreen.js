@@ -77,6 +77,7 @@ const ProductScreen = ({ history, match }) => {
                         <Col>Qty</Col>
                         <Col>
                           <FormControl
+                            className='width-3-rem'
                             custom
                             as='select'
                             value={qty}
