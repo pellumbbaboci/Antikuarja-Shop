@@ -98,7 +98,7 @@ const updateOrdertoPaid = asyncHandler(async (req, res) => {
       id: req.body.id,
       status: req.body.status,
       update_time: req.body.update_time,
-      email_address: req.body.buyer.email_address,
+      email_address: req.body.payer.email_address,
     }
 
     const updatedOrder = await order.save()
@@ -106,7 +106,7 @@ const updateOrdertoPaid = asyncHandler(async (req, res) => {
     res.json(updatedOrder)
   } else {
     res.status(404)
-    throw new Error('Order Not Found')
+    throw new Error('Order not found')
   }
 })
 
