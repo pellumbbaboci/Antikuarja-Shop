@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col, ListGroup, Image, Nav } from 'react-bootstrap'
+import {
+  Form,
+  Button,
+  Row,
+  Col,
+  ListGroup,
+  Image,
+  Nav,
+  Container,
+} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -28,7 +37,6 @@ const ProfileScreen = ({ history }) => {
 
   const orderListLastThree = useSelector((state) => state.orderListLastThree)
   const { orders } = orderListLastThree
-  console.log(orders)
 
   useEffect(() => {
     if (!userInfo) {
@@ -118,65 +126,87 @@ const ProfileScreen = ({ history }) => {
         {orders.length === 0 ? (
           <Message>You do not have any order</Message>
         ) : (
-          <Col md={12}>
-            {orders.map((order, idx) => (
-              <ListGroup variant='flush' className='my-2'>
-                <ListGroup.Item key={idx}>
-                  <h2>Shipping</h2>
-                  <p>
-                    <strong>Address: </strong>
-                    {order.shippingAddress.address},{order.shippingAddress.city}
-                    ,{order.shippingAddress.postalCode},
-                    {order.shippingAddress.country}
-                  </p>
-                </ListGroup.Item>
+          <Container>
+            <Row>
+              {orders.map((order, idx) => (
+                <Col md={4}>
+                  <ListGroup variant='flush' className='my-2'>
+                    <ListGroup.Item key={idx}>
+                      <h2>Shipping</h2>
+                      <p>
+                        <strong>Address: </strong>
+                        {order.shippingAddress.address},
+                        {order.shippingAddress.city},
+                        {order.shippingAddress.postalCode},
+                        {order.shippingAddress.country}
+                      </p>
+                      {order.isDelivered ? (
+                        <Message variant='success'>
+                          Delivered on {order.deliveredAt}
+                        </Message>
+                      ) : (
+                        <Message variant='danger'>Not Delivered</Message>
+                      )}
+                    </ListGroup.Item>
 
-                <ListGroup.Item key={idx}>
-                  <h2>Payment Method</h2>
-                  <p>
-                    <strong>Method: </strong>
-                    {order.paymentMethod}
-                  </p>
-                </ListGroup.Item>
+                    <ListGroup.Item key={idx}>
+                      <h2>Payment Method</h2>
+                      <p>
+                        <strong>Method: </strong>
+                        {order.paymentMethod}
+                      </p>
+                      {order.isPaid ? (
+                        <Message variant='success'>
+                          Paid on{' '}
+                          {`${order.paidAt.split('T')[0]} Time: ${order.paidAt
+                            .split('T')[1]
+                            .substring(0, 5)}`}
+                        </Message>
+                      ) : (
+                        <Message variant='danger'>Not Paid</Message>
+                      )}
+                    </ListGroup.Item>
 
-                <ListGroup.Item key={idx}>
-                  <h2>Order Items</h2>
-                  {order.orderItems.length === 0 ? (
-                    <Message>Your Cart is empty</Message>
-                  ) : (
-                    <ListGroup variant='flush'>
-                      {order.orderItems.map((item, index) => (
-                        <ListGroup.Item key={index}>
-                          <Row>
-                            <Col md={1}>
-                              <Image
-                                src={item.image}
-                                alt={item.name}
-                                fluid
-                                rounded
-                              />
-                            </Col>
-                            <Col>
-                              <Link to={`/product/${item.product}`}>
-                                {item.name}
-                              </Link>
-                            </Col>
-                            <Col md={4}>
-                              {item.price} X {item.qty} ={' '}
-                              {(item.qty * item.price).toFixed(2)}
-                            </Col>
-                          </Row>
-                        </ListGroup.Item>
-                      ))}
-                    </ListGroup>
-                  )}
-                </ListGroup.Item>
-                <Link to={`/order/${order._id}`} className='d-grid'>
-                  <Button>Go To Order</Button>
-                </Link>
-              </ListGroup>
-            ))}
-          </Col>
+                    <ListGroup.Item key={idx}>
+                      <h2>Order Items</h2>
+                      {order.orderItems.length === 0 ? (
+                        <Message>Your Cart is empty</Message>
+                      ) : (
+                        <ListGroup variant='flush'>
+                          {order.orderItems.map((item, index) => (
+                            <ListGroup.Item key={index}>
+                              <Row>
+                                <Col md={3}>
+                                  <Image
+                                    src={item.image}
+                                    alt={item.name}
+                                    fluid
+                                    rounded
+                                  />
+                                </Col>
+                                <Col>
+                                  <Link to={`/product/${item.product}`}>
+                                    {item.name}
+                                  </Link>
+                                </Col>
+                                <Col md={4}>
+                                  {item.price} X {item.qty} ={' '}
+                                  {(item.qty * item.price).toFixed(2)}
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                          ))}
+                        </ListGroup>
+                      )}
+                    </ListGroup.Item>
+                    <Link to={`/order/${order._id}`} className='d-grid'>
+                      <Button>Go To Order</Button>
+                    </Link>
+                  </ListGroup>
+                </Col>
+              ))}
+            </Row>
+          </Container>
         )}
       </Row>
     </Col>

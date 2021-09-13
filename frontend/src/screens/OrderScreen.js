@@ -107,7 +107,12 @@ const OrderScreen = ({ match }) => {
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant='success'>Paid on {order.paidAt}</Message>
+                <Message variant='success'>
+                  Paid on{' '}
+                  {`${order.paidAt.split('T')[0]}  Time: ${order.paidAt
+                    .split('T')[1]
+                    .substring(0, 5)}`}
+                </Message>
               ) : (
                 <Message variant='danger'>Not Paid</Message>
               )}
