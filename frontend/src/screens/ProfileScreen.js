@@ -133,7 +133,9 @@ const ProfileScreen = ({ history }) => {
         </Nav>
         <h2>My Last Three Orders</h2>
 
-        {loadingOrders ? (
+        {!orders ? (
+          <Message>You do not have any order</Message>
+        ) : loadingOrders ? (
           <Loader />
         ) : errorOrders ? (
           <Message variant='danger'>{errorOrders}</Message>
