@@ -11,9 +11,10 @@ import { getOrderDetails, payOrder } from '../actions/orderActions'
 import axios from 'axios'
 import { ORDER_PAY_RESET } from '../constants/orderConstatns'
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
   const [sdkReady, setSdkReady] = useState(false)
   const orderId = match.params.id
+  console.log(orderId)
 
   const dispatch = useDispatch()
 
@@ -22,6 +23,9 @@ const OrderScreen = ({ match }) => {
 
   const orderPay = useSelector((state) => state.orderPay)
   const { loading: loadingPay, success: successPay } = orderPay
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   if (!loading) {
     //   Calculate prices
@@ -35,6 +39,9 @@ const OrderScreen = ({ match }) => {
   }
 
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login')
+    }
     const addPaypalScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal')
       // just adding dynamically paypal script
@@ -49,8 +56,8 @@ const OrderScreen = ({ match }) => {
     }
 
     if (successPay || !order) {
-      dispatch({ type: ORDER_PAY_RESET })
       dispatch(getOrderDetails(orderId))
+      dispatch({ type: ORDER_PAY_RESET })
     } else if (!order.isPaid) {
       if (!window.paypal) {
         addPaypalScript()
@@ -58,7 +65,7 @@ const OrderScreen = ({ match }) => {
         setSdkReady(true)
       }
     }
-  }, [dispatch, order, orderId, successPay])
+  }, [dispatch, history, order, orderId, successPay, userInfo])
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult)

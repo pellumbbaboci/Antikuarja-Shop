@@ -110,12 +110,16 @@ export const listOrders = () => async (dispatch, getState) => {
       payload: data,
     })
   } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
     dispatch({
       type: ORDER_LIST_FAIL,
-      payload:
-        error.respose && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: message,
     })
   }
 }
@@ -141,12 +145,16 @@ export const listLastThreeOrders = () => async (dispatch, getState) => {
       payload: data,
     })
   } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
     dispatch({
       type: ORDER_LIST_LAST_THREE_FAIL,
-      payload:
-        error.respose && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: message,
     })
   }
 }

@@ -15,6 +15,7 @@ import Loader from '../components/Loader'
 import { getUserDetails, updateProfile } from '../actions/userActions'
 import { listLastThreeOrders } from '../actions/orderActions'
 import { Link } from 'react-router-dom'
+import { LinkContainer } from 'react-router-bootstrap'
 
 const ProfileScreen = ({ history }) => {
   const [name, setName] = useState('')
@@ -36,7 +37,11 @@ const ProfileScreen = ({ history }) => {
   const { success } = userProfileUpdate
 
   const orderListLastThree = useSelector((state) => state.orderListLastThree)
-  const { orders } = orderListLastThree
+  const {
+    loading: loadingOrders,
+    error: errorOrders,
+    orders,
+  } = orderListLastThree
 
   useEffect(() => {
     if (!userInfo) {
@@ -125,6 +130,10 @@ const ProfileScreen = ({ history }) => {
         <h2>My Last Three Orders</h2>
         {orders.length === 0 ? (
           <Message>You do not have any order</Message>
+        ) : loadingOrders ? (
+          <Loader />
+        ) : errorOrders ? (
+          <Message variant='danger'>{errorOrders}</Message>
         ) : (
           <Container>
             <Row>
@@ -199,9 +208,14 @@ const ProfileScreen = ({ history }) => {
                         </ListGroup>
                       )}
                     </ListGroup.Item>
-                    <Link to={`/order/${order._id}`} className='d-grid'>
-                      <Button>Go To Order</Button>
-                    </Link>
+                    <LinkContainer
+                      to={`/order/${order._id}`}
+                      className='d-grid'
+                    >
+                      <Button className='btn-sm' variant='light'>
+                        Go To Order
+                      </Button>
+                    </LinkContainer>
                   </ListGroup>
                 </Col>
               ))}
