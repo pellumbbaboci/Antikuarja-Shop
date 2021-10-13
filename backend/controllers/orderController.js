@@ -3,7 +3,7 @@ import asyncHandler from 'express-async-handler'
 
 /**  
      @desc Fetch all my orders
-     @route GET /api/orders
+     @route GET /api/orders/myorders
      @access private
 */
 const getOrders = asyncHandler(async (req, res) => {
@@ -12,8 +12,8 @@ const getOrders = asyncHandler(async (req, res) => {
 })
 
 /**  
-     @desc Fetch three of  my orders
-     @route GET /api/orders
+     @desc Fetch three of  my last three orders
+     @route GET /api/orders/lastThree
      @access private
 */
 const getLastThreeOrders = asyncHandler(async (req, res) => {
