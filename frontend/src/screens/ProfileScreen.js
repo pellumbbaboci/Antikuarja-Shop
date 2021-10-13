@@ -16,6 +16,7 @@ import { getUserDetails, updateProfile } from '../actions/userActions'
 import { listLastThreeOrders } from '../actions/orderActions'
 import { Link } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 const ProfileScreen = ({ history }) => {
   const [name, setName] = useState('')
@@ -43,11 +44,14 @@ const ProfileScreen = ({ history }) => {
     orders,
   } = orderListLastThree
 
+  console.log(orders)
+
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')
     } else {
-      if (!user.name) {
+      if (!user || !user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET })
         dispatch(getUserDetails('profile'))
         dispatch(listLastThreeOrders())
       } else {
@@ -55,7 +59,7 @@ const ProfileScreen = ({ history }) => {
         setEmail(user.email)
       }
     }
-  }, [dispatch, history, userInfo, user])
+  }, [dispatch, history, userInfo, user, success])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -128,9 +132,8 @@ const ProfileScreen = ({ history }) => {
           <Link to='/'>See all your orders from here</Link>
         </Nav>
         <h2>My Last Three Orders</h2>
-        {orders.length === 0 ? (
-          <Message>You do not have any order</Message>
-        ) : loadingOrders ? (
+
+        {loadingOrders ? (
           <Loader />
         ) : errorOrders ? (
           <Message variant='danger'>{errorOrders}</Message>
