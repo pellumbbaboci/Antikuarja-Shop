@@ -47,13 +47,16 @@ const ProfileScreen = ({ history }) => {
   console.log(orders)
 
   useEffect(() => {
+
     if (!userInfo) {
       history.push('/login')
     } else {
+      dispatch(listLastThreeOrders())
+
       if (!user || !user.name || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET })
         dispatch(getUserDetails('profile'))
-        dispatch(listLastThreeOrders())
+        // dispatch(listLastThreeOrders())
       } else {
         setName(user.name)
         setEmail(user.email)
