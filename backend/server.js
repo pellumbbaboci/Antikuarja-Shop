@@ -36,6 +36,7 @@ app.set('trust proxy', true)
 const allowedOrigins = [
   'http://localhost:3000/',
   'https://bestshopeverapp.herokuapp.com/',
+  'https://antikuarja.herokuapp.com/',
 ]
 app.use(
   cors({
