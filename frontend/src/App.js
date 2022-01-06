@@ -14,6 +14,7 @@ import ShippingScreen from './screens/ShippingScreen'
 import PaymentScreen from './screens/PaymentScreen'
 import PlaceOrderScreen from './screens/PlaceOrderScreen'
 import OrderScreen from './screens/OrderScreen'
+import HeroHeader from './components/HeroHeader'
 
 const App = () => {
   return (
@@ -21,6 +22,8 @@ const App = () => {
       <Header />
 
       <main className='py-3'>
+      <HeroHeader/>
+
         <Container className='text py3'>
           <Switch>
             <Route exact path='/' component={HomeScreen} />
