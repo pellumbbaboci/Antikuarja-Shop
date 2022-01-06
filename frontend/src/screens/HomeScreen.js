@@ -5,6 +5,7 @@ import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProducts } from '../actions/productActions'
+import HeroHeader from '../components/HeroHeader'
 
 const HomeScreen = () => {
   const dispatch = useDispatch()
@@ -19,6 +20,8 @@ const HomeScreen = () => {
 
   return (
     <>
+      <HeroHeader/>
+
       <h1>Products</h1>
 
       {loading ? (
