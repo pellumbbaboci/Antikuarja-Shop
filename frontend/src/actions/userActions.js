@@ -15,6 +15,9 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_DETAILS_RESET,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAIL,
 } from '../constants/userConstants'
 
 export const login = (email, password) => async (dispatch) => {
@@ -29,11 +32,7 @@ export const login = (email, password) => async (dispatch) => {
       },
     }
 
-    const { data } = await axios.post(
-      '/api/users/login',
-      { email, password },
-      config
-    )
+    const { data } = await axios.post('/api/users/login', { email, password }, config)
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
@@ -44,10 +43,7 @@ export const login = (email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
     })
   }
 }
@@ -71,11 +67,7 @@ export const register = (name, email, password) => async (dispatch) => {
       },
     }
 
-    const { data } = await axios.post(
-      '/api/users',
-      { name, email, password },
-      config
-    )
+    const { data } = await axios.post('/api/users', { name, email, password }, config)
 
     dispatch({
       type: USER_REGISTER_SUCCESS,
@@ -91,10 +83,7 @@ export const register = (name, email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
     })
   }
 }
@@ -122,10 +111,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       payload: data,
     })
   } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message
     if (message === 'Not authorized, token failed') {
       dispatch(logout())
     }
@@ -166,15 +152,46 @@ export const updateProfile = (user) => async (dispatch, getState) => {
 
     localStorage.setItem('userInfo', JSON.stringify(data))
   } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message
     if (message === 'Not authorized, token failed') {
       dispatch(logout())
     }
     dispatch({
       type: USER_UPDATE_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const listUsers = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_LIST_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get('/api/users', config)
+
+    dispatch({
+      type: USER_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message = error.response && error.response.data.message ? error.response.data.message : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: USER_LIST_FAIL,
       payload: message,
     })
   }
