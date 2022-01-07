@@ -21,6 +21,10 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
+  USER_EDIT_RESET,
+  USER_EDIT_FAIL,
+  USER_EDIT_SUCCESS,
+  USER_EDIT_REQUEST,
 } from '../constants/userConstants.js'
 
 export const userLoginReducer = (state = {}, action) => {
@@ -104,6 +108,23 @@ export const userDeleteReducer = (state = {}, action) => {
       return { loading: false, success: true }
     case USER_DELETE_FAIL:
       return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const userEditReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case USER_EDIT_REQUEST:
+      return { loading: true }
+    case USER_EDIT_SUCCESS:
+      return { loading: false, success: true }
+    case USER_EDIT_FAIL:
+      return { loading: false, error: action.payload }
+    case USER_EDIT_RESET:
+      return {
+        user: {},
+      }
     default:
       return state
   }

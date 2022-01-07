@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { getUserDetails } from '../actions/userActions'
+import { getUserDetails, editUser } from '../actions/userActions'
+import { USER_EDIT_RESET } from '../constants/userConstants'
 
 const UserEditScreen = ({ match, history }) => {
   const userId = match.params.id
@@ -13,25 +14,33 @@ const UserEditScreen = ({ match, history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [isAdmin, setIsAdmin] = useState(false)
-  const [confirmPassword, setConfirmPassword] = useState('')
 
   const dispatch = useDispatch()
 
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails
 
+  const userEdit = useSelector((state) => state.userEdit)
+  const { loading: loadingEdit, error: errorEdit, success: successEdit } = userEdit
+
   useEffect(() => {
-    if (!user.name || user._id !== userId) {
-      dispatch(getUserDetails(userId))
+    if (successEdit) {
+      dispatch({ type: USER_EDIT_RESET })
+      history.push('/admin/userlist')
     } else {
-      setName(user.name)
-      setEmail(user.email)
-      setIsAdmin(user.isAdmin)
+      if (!user.name || user._id !== userId) {
+        dispatch(getUserDetails(userId))
+      } else {
+        setName(user.name)
+        setEmail(user.email)
+        setIsAdmin(user.isAdmin)
+      }
     }
-  }, [user, userId, dispatch])
+  }, [user, userId, dispatch, successEdit, history])
 
   const submitHandler = (e) => {
     e.preventDefault()
+    dispatch(editUser({ _id: userId, name, email, isAdmin }))
   }
 
   return (
@@ -42,6 +51,8 @@ const UserEditScreen = ({ match, history }) => {
 
       <FormContainer>
         <h1>Edit user</h1>
+        {loadingEdit && <Loader />}
+        {errorEdit && <Message variant='danger'>{errorEdit}</Message>}
         {loading ? (
           <Loader />
         ) : error ? (
@@ -62,7 +73,7 @@ const UserEditScreen = ({ match, history }) => {
             </Form.Group>
 
             <Button type='submit' variant='primary'>
-              Update
+              Edit
             </Button>
           </Form>
         )}
