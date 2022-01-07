@@ -57,22 +57,26 @@ const UserListScreen = ({ history }) => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.isAdmin ? 'YES' : 'NO'}</td>
-                <td>
-                  <LinkContainer to={`/user/${user._id}/edit`}>
-                    <Button variant='light' className='btn-sm'>
-                      <i className='fas fa-edit'></i>
+                {userInfo._id === user._id ? (
+                  <td>This is YOU</td>
+                ) : (
+                  <td>
+                    <LinkContainer to={`/admin/user/${user._id}/edit`}>
+                      <Button variant='light' className='btn-sm'>
+                        <i className='fas fa-edit'></i>
+                      </Button>
+                    </LinkContainer>
+                    <Button
+                      variant='danger'
+                      className='btn-sm'
+                      onClick={() => {
+                        deleteHandler(user._id)
+                      }}
+                    >
+                      <i className='fas fa-trash'></i>
                     </Button>
-                  </LinkContainer>
-                  <Button
-                    variant='danger'
-                    className='btn-sm'
-                    onClick={() => {
-                      deleteHandler(user._id)
-                    }}
-                  >
-                    <i className='fas fa-trash'></i>
-                  </Button>
-                </td>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
