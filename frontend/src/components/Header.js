@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { logout } from '../actions/userActions'
 import { useHistory } from 'react-router-dom'
+import SearchComponent from './SearchComponent'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -23,6 +24,7 @@ const Header = () => {
           <LinkContainer to='/'>
             <Navbar.Brand>Antikuare</Navbar.Brand>
           </LinkContainer>
+
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='justify-content-end' style={{ width: '100%' }}>

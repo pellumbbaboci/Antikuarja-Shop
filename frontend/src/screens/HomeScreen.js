@@ -6,6 +6,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProducts } from '../actions/productActions'
 import HeroHeader from '../components/HeroHeader'
+import SearchComponent from '../components/SearchComponent'
 
 const HomeScreen = () => {
   const dispatch = useDispatch()
@@ -20,9 +21,16 @@ const HomeScreen = () => {
 
   return (
     <>
-      <HeroHeader/>
+      <HeroHeader />
 
-      <h1>Products</h1>
+      <h1
+        style={{
+          display: 'inline-block',
+        }}
+      >
+        Products
+      </h1>
+      <SearchComponent />
 
       {loading ? (
         <Loader></Loader>
