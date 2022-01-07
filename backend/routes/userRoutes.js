@@ -7,8 +7,6 @@ const router = express.Router()
 
 router.route('/').post(registerUser).get(protect, adminProtect, getUsers)
 
-router.route('/:id').delete(protect, adminProtect, deleteUser).get(protect, adminProtect, getUserById).put(protect, adminProtect, updateUser)
-
 /**
  * @swagger
  * /:
@@ -17,6 +15,9 @@ router.route('/:id').delete(protect, adminProtect, deleteUser).get(protect, admi
  *     description: login.
  */
 router.post('/login', authUser)
+
 router.route('/profile').get(protect, getUserProfile).put(protect, updateUserProfile)
+
+router.route('/:id').delete(protect, adminProtect, deleteUser).get(protect, adminProtect, getUserById).put(protect, adminProtect, updateUser)
 
 export default router
