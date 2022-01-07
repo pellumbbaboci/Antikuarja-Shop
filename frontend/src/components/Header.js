@@ -41,11 +41,18 @@ const Header = () => {
                   <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                 </NavDropdown>
               ) : (
-                <LinkContainer to='/login'>
-                  <Nav.Link>
-                    <i className='fas fa-user'></i>Sign In
-                  </Nav.Link>
-                </LinkContainer>
+                <>
+                  <LinkContainer to='/login'>
+                    <Nav.Link>
+                      <i className='fas fa-user'></i>Sign In
+                    </Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to='/register'>
+                    <Nav.Link className='text-primary'>
+                      <i class='fas fa-user-plus'></i>Sign Up
+                    </Nav.Link>
+                  </LinkContainer>
+                </>
               )}
               {userInfo && userInfo.isAdmin && (
                 <NavDropdown title='Admin' id='admin-menu'>
