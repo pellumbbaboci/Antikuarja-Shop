@@ -6,7 +6,6 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProducts } from '../actions/productActions'
 import HeroHeader from '../components/HeroHeader'
-import SearchComponent from '../components/SearchComponent'
 
 const HomeScreen = () => {
   const dispatch = useDispatch()
@@ -20,17 +19,14 @@ const HomeScreen = () => {
   }, [dispatch])
 
   return (
-    <>
+    <main
+      style={{
+        position: 'relative',
+      }}
+    >
       <HeroHeader />
 
-      <h1
-        style={{
-          display: 'inline-block',
-        }}
-      >
-        Products
-      </h1>
-      <SearchComponent />
+      <h1>Products</h1>
 
       {loading ? (
         <Loader></Loader>
@@ -45,7 +41,7 @@ const HomeScreen = () => {
           ))}
         </Row>
       )}
-    </>
+    </main>
   )
 }
 

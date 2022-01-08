@@ -14,13 +14,18 @@ const SearchComponent = ({ history }) => {
   }
 
   return (
+    // TODO: change position style for search responsive!!!!
     <Form
       onSubmit={submitHandler}
-      className='ml-sm-5'
+      className='hidden-sm-up'
       inline
       style={{
-        display: 'inline-block',
-        marginLeft: 10,
+        display: 'flex',
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginLeft: 0,
+        position: '',
+        right: 0,
       }}
     >
       <Form.Control
@@ -28,22 +33,24 @@ const SearchComponent = ({ history }) => {
         name='q'
         onChange={(e) => setKeyword(e.target.value)}
         placeholder='Search Products...'
-        className='mr-sm-2 ml-sm-5'
+        // className='mr-sm-2 ml-sm-5'
         style={{
-          display: 'inline-block',
+          display: 'inline-flex',
         }}
       ></Form.Control>
-      {/* <Button
+      <Button
         type='submit'
-        variant='outline-success'
-        className='p-2'
+        variant='outline-primary'
+        className='px-4 '
         inline
         style={{
-          display: 'inline-block',
+          display: 'inline-flex',
+          marginLeft: 5,
+          borderRadius: 300,
         }}
       >
         Search
-      </Button> */}
+      </Button>
     </Form>
   )
 }

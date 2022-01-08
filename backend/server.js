@@ -2,6 +2,7 @@ import express from 'express'
 import path from 'path'
 import dotenv from 'dotenv'
 import asyncHandler from 'express-async-handler'
+import morgan from 'morgan'
 
 import connectDB from './config/db.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
@@ -29,43 +30,35 @@ connectDB()
 
 const app = express()
 
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
+
 app.use(express.json())
 
 app.set('trust proxy', true)
 
-const allowedOrigins = [
-  'http://localhost:3000/',
-  'https://bestshopeverapp.herokuapp.com/',
-  'https://antikuarja.herokuapp.com/',
-]
+const allowedOrigins = ['http://localhost:3000/', 'https://bestshopeverapp.herokuapp.com/', 'https://antikuarja.herokuapp.com/']
 app.use(
   cors({
     origin: allowedOrigins,
   })
 )
 
-app.use(
-  '/api/docs',
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocs, { explorer: true })
-)
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs, { explorer: true }))
 
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
 
-app.use('/api/config/paypal', (res, req) =>
-  req.send(process.env.PAYPAL_CLIENT_ID)
-)
+app.use('/api/config/paypal', (res, req) => req.send(process.env.PAYPAL_CLIENT_ID))
 
 const __dirname = path.resolve()
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/build')))
 
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-  )
+  app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html')))
 } else {
   /**
    * @swagger
@@ -87,7 +80,4 @@ app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
 
-app.listen(
-  PORT,
-  console.log(`Server Running in ${process.env.NODE_ENV} mode on port: ${PORT}`)
-)
+app.listen(PORT, console.log(`Server Running in ${process.env.NODE_ENV} mode on port: ${PORT}`))

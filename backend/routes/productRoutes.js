@@ -1,9 +1,6 @@
 import express from 'express'
-import {
-  getProductById,
-  getProducts,
-  getRelatedProducts,
-} from '../controllers/productControllers.js'
+import { createProductReview, getProductById, getProducts, getRelatedProducts } from '../controllers/productControllers.js'
+import { protect } from '../middleware/authMiddleware.js'
 
 const router = express.Router()
 /**
@@ -23,6 +20,8 @@ router.route('/related').get(getRelatedProducts)
  *     description: Retrieve a list of products.
  */
 router.route('/').get(getProducts)
+
+router.route('/:id/reviews').post(protect, createProductReview)
 
 /**
  * @swagger
