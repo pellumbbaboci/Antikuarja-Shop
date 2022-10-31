@@ -9,7 +9,7 @@ In this project you will find the most basic features of the e-commerce business
 The system includes the functionality for end user to order and pay for the order, all the users can list the products and see the product details
 also i have implemented admin panel but its not yet finished, as for now admin can only manage users.
 
-
+edit template
 
 ### CI/CD Pipeline
 
